@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import re_path,include
+from accounts import views as user_view
 
 urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^',include('recipe.urls'), name = 'home'),
+    re_path(r'^register/$', user_view.register, name='register'),
+    
 ]
