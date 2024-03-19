@@ -137,3 +137,6 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+LOGIN_REDIRECT_URL = 'homepage'
+LOGIN_URL = 'login'
