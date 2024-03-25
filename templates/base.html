@@ -9,6 +9,7 @@
     <title>{% block title %}Recipe Sharing{% endblock %}</title>
     <!-- Aggiungi qui eventuali stili CSS comuni -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}" >
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -18,7 +19,7 @@
     
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #055160;">
     <div class="container">
       <a class="navbar-brand" href="{% url 'homepage' %}">Recipes App</a>
       <button
