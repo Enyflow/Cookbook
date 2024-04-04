@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from .init import *
 
 urlpatterns = [
     path('',views.RecipeListView.as_view(), name="homepage"),
@@ -25,4 +26,7 @@ urlpatterns = [
     path('recipe/<int:pk>/update', views.RecipeUpdateView.as_view(), name="update"),
     path('recipe/<int:pk>/delete', views.RecipeDeleteView.as_view(), name="delete"),
     path('about/', views.about, name='about'),
+    path('search/', views.search_view, name='search'),
 ]
+#delete_all_recipes()
+#create_recipes()
