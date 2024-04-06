@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView,DetailView,CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin,PermissionRequiredMixin
 from . import models
-from .models import Recipe
+from .models import Recipe,Comment
 from .forms import RecipeForm
 from django.conf import settings
 
@@ -81,3 +81,23 @@ def search_view(request):
         else:
             results = Recipe.objects.none()
         return render(request, 'search_results.html', {'results': results, 'query': query})
+
+    
+def rate_recipe(request, recipe_id):
+    if request.method == 'POST':
+        recipe = Recipe.objects.get(pk=recipe_id)
+        rating = int(request.POST.get('rating'))
+        recipe.rating = rating
+        recipe.save()
+    return redirect('detail', pk=recipe_id)
+
+
+def add_comment(request, recipe_id):
+    if request.method == 'POST':
+        recipe = Recipe.objects.get(pk=recipe_id)
+        author = request.user
+        text = request.POST.get('text')
+        rating = int(request.POST.get('rating'))  # Ottieni la valutazione dal form
+        Comment.objects.create(recipe=recipe, author=author, text=text, rating=rating)  # Salva il commento con la valutazione
+    return redirect('detail', pk=recipe_id)
+
