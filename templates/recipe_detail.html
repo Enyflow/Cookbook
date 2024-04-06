@@ -1,22 +1,29 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h1>Recipe # {{object.id}}</h1>
-<div class="card my-4">
-  <div class="card-body">
-    <h5 class="card-title">{{ object.title }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{ object.author }}</h6>
-    <p class="card-text">{{ object.description }}</p>
-    <h6 class="card-subtitle mb-2 text-muted">
-      {{ object.updated_at|date:"F d, Y" }}
-    </h6>
-  </div>
+<div class="container">
+    <h1>Recipe # {{ object.id }}</h1>
+    <div class="card my-4">
+        <div class="card-body">
+            <h5 class="card-title">{{ object.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ object.author }}</h6>
+            {% if object.image %}
+                <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object.title }}" style="width: 200px; height: auto;"> <!-- Visualizza l'immagine specifica della ricetta -->
+            {% else %}
+                <img src="{% static 'images/nr-logo.png' %}" class="card-img-top" alt="Default Recipe Image" style="width: 200px; height: auto;"> <!-- Visualizza l'immagine predefinita -->
+            {% endif %}
+            <p class="card-text">{{ object.description }}</p> <!-- Utilizza un tag <p> per la descrizione -->
+            <h6 class="card-subtitle mb-2 text-muted">
+                {{ object.updated_at|date:"F d, Y" }}
+            </h6>
+        </div>
+    </div>
+    {% if object.author == user or user.is_staff %}
+    <div class="col-4">
+        <a class="btn btn-outline-info" href="{% url 'update' object.id %}">Update</a>
+        <a class="btn btn-outline-danger" href="{% url 'delete' object.id %}">Delete</a>
+    </div>
+    {% endif %}
 </div>
-{% if object.author == user or user.is_staff %}
-<div class="col-4">
-    <a class="btn btn-outline-info" href="{% url 'update' object.id %}">Update</a>
-    <a class="btn btn-outline-danger" href="{% url 'delete' object.id %}">Delete</a>
-</div>
-{% endif %}
-
 {% endblock content %}

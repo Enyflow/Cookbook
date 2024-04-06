@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import re_path,include,path
 from accounts import views as user_view
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
@@ -28,3 +30,6 @@ urlpatterns = [
     re_path(r'^logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
     re_path(r'^profile/', user_view.profile, name="profile"),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

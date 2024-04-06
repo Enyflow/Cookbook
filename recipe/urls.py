@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from .init import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('',views.RecipeListView.as_view(), name="homepage"),
@@ -28,5 +30,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('search/', views.search_view, name='search'),
 ]
+
+
 #delete_all_recipes()
 #create_recipes()
