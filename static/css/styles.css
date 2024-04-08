@@ -1,3 +1,7 @@
 .card-text {
     white-space: pre-wrap;
 }
+
+.gray-text {
+    color: #888; /* Imposta il colore del testo su grigio */
+}
