@@ -7,7 +7,7 @@ from . import models
 from .models import Recipe,Comment
 from .forms import RecipeForm
 from django.conf import settings
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
@@ -20,12 +20,23 @@ class RecipeListView(ListView):
     model = Recipe
     template_name = 'home.html'
     context_object_name = 'recipes'
+    paginate_by = 5
 
     def get_queryset(self):
-        return Recipe.objects.all()
+        return Recipe.objects.all().order_by('-updated_at')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        recipe_list = self.get_queryset()
+        paginator = Paginator(recipe_list, self.paginate_by)
+        page = self.request.GET.get('page')
+        try:
+            recipes = paginator.page(page)
+        except PageNotAnInteger:
+            recipes = paginator.page(1)
+        except EmptyPage:
+            recipes = paginator.page(paginator.num_pages)
+        context['recipes'] = recipes
         return context
 
 class RecipeDetailView(LoginRequiredMixin, DetailView):

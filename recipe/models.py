@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.validators import FileExtensionValidator
 
 def get_default_image():
     return 'recipe.png'
@@ -11,7 +12,7 @@ class Recipe(models.Model):
   description = models.TextField()
   short_description = models.CharField(max_length=200,default='')
   author = models.ForeignKey(User, on_delete=models.CASCADE)
-  image = models.ImageField(upload_to='recipe_images/',null=True, blank=True)
+  image = models.ImageField(upload_to='recipe_images/', validators=[FileExtensionValidator(['jpg', 'jpeg', 'png'])], null=True, blank=False)
 
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)

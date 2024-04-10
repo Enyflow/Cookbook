@@ -8,22 +8,25 @@
 <h1>Recipes:</h1>
 {% for recipe in recipes %}
 <div class="card my-4">
-  <div class="card-body">
-    <h5 class="card-title">{{ recipe.title }}</h5>
-    <h6 class="card-subtitle mb-2 text-muted">{{ recipe.author }}</h6>
-    <p class="card-text">{{ recipe.short_description }}</p>
-    <h6 class="card-subtitle mb-2 text-muted">
-      {{ recipe.updated_at|date:"F d, Y" }}
-    </h6>
-    <a href="{% url 'detail' recipe.pk %}" class="card-link">View Recipe</a>
-    
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ recipe.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ recipe.author }}</h6>
+        <p class="card-text">{{ recipe.short_description }}</p>
+        <h6 class="card-subtitle mb-2 text-muted">
+          {{ recipe.updated_at|date:"F d, Y" }}
+        </h6>
+        <a href="{% url 'detail' recipe.pk %}" class="card-link">View Recipe</a>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex justify-content-end align-items-center">
+      <img src="{{ recipe.image.url }}" class="img-thumbnail rounded-start" alt="{{ recipe.title }}" style="max-height: 200px;">
+    </div>
   </div>
-  <div class="col-md-4">
-    <img src="{{ recipe.image.url }}" class="img-fluid rounded-start" alt="{{ recipe.title }}" style="width: 200px; height: auto;">
 </div>
-</div>
-
 {% endfor %}
+
 
 
 
@@ -57,4 +60,24 @@
       </div>
     </div>
   </div>
+
+  <!-- Aggiungi questo alla fine del tuo template -->
+<div class="pagination">
+  <span class="step-links">
+    {% if recipes.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ recipes.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ recipes.number }} of {{ recipes.paginator.num_pages }}.
+    </span>
+
+    {% if recipes.has_next %}
+      <a href="?page={{ recipes.next_page_number }}">next</a>
+      <a href="?page={{ recipes.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+
 {% endblock content %}

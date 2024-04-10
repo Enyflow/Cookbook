@@ -9,6 +9,10 @@ django-bootstrap4 = "*"
 django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 pillow = "*"
+django-extensions = "*"
+graphviz = "*"
+pyparsing = "*"
+pydot = "*"
 
 [dev-packages]
 
