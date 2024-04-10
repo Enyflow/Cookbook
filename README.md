@@ -10,6 +10,7 @@ Getting Started
 -Run the command python manage.py runserver to start the local server.
 -Open your browser and go to http://localhost:8000 to view the site.
 
+
 Dependencies
 Django: Web framework for rapid web development.
 django-crispy-forms: Package to make handling and customizing forms in Django easier.
