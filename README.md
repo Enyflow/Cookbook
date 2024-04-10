@@ -15,5 +15,5 @@ Dependencies
 Django: Web framework for rapid web development.
 django-crispy-forms: Package to make handling and customizing forms in Django easier.
 Pillow: Python library for image support.
-Django-extensions
+Django-extensions.
 If you encounter any errors during installation or running the project, make sure to install all necessary dependencies by running the commands listed above.
